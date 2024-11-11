@@ -51,19 +51,7 @@ fun SignUpWindow(navController: NavHostController) {
                 style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
             )
         }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .size(80.dp)
-        ) {
-            TextField(
-                login.value, modifier = Modifier.fillMaxSize(),
-                textStyle = TextStyle(fontSize = 25.sp),
-                onValueChange = { login.value = it },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii)
-            )
-        }
+        MyTextField(login)
         // Пароль
         Box(
             modifier = Modifier
@@ -77,20 +65,7 @@ fun SignUpWindow(navController: NavHostController) {
                 style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
             )
         }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .size(80.dp)
-        ) {
-            TextField(
-                password.value, modifier = Modifier.fillMaxSize(),
-                textStyle = TextStyle(fontSize = 25.sp),
-                visualTransformation = PasswordVisualTransformation(),
-                onValueChange = { password.value = it },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-            )
-        }
+        MyTextField(password)
         // Повторить пароль
         Box(
             modifier = Modifier
@@ -104,20 +79,7 @@ fun SignUpWindow(navController: NavHostController) {
                 style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
             )
         }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .size(80.dp)
-        ) {
-            TextField(
-                confirmPassword.value, modifier = Modifier.fillMaxSize(),
-                textStyle = TextStyle(fontSize = 25.sp),
-                visualTransformation = PasswordVisualTransformation(),
-                onValueChange = { confirmPassword.value = it },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-            )
-        }
+        MyTextField(confirmPassword)
 
 
         Spacer(modifier = Modifier

@@ -1,5 +1,6 @@
 package com.example.doljnikprod
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -68,6 +69,7 @@ fun addCheck(
     }
 }
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Person) {
     var debtors = remember { mutableMapOf<String, Int>() }
@@ -91,29 +93,14 @@ fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Perso
         }
     }
 
-    var thisDebtStr by rememberSaveable { mutableStateOf("") }
+    val thisDebtStr = mutableStateOf("")
 
     Column(verticalArrangement = Arrangement.SpaceAround) {
         BackButton({
             navController.popBackStack()
             navController.navigate(Routes.Room.route)
         })
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .size(120.dp),
-            contentAlignment = Alignment.CenterStart
-        ) {
-            TextField(
-                thisDebtStr, modifier = Modifier
-                    .fillMaxWidth()
-                    .size(70.dp),
-                textStyle = TextStyle(fontSize = 25.sp),
-                onValueChange = { thisDebtStr = it },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
-            )
-        }
+        MyTextField(thisDebtStr)
 
         LazyColumn(
             modifier = Modifier
@@ -166,7 +153,7 @@ fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Perso
                 .size(350.dp, 80.dp),
                 shape = RoundedCornerShape(20.dp),
                 onClick = {
-                    addCheck(thisDebtStr, debtorsNames, whoDebts, navController, thisRoom, user)
+                    addCheck(thisDebtStr.value, debtorsNames, whoDebts, navController, thisRoom, user)
                 }) {
                 Text("Добавить", fontSize = 35.sp)
             }

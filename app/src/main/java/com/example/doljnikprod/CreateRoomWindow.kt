@@ -63,19 +63,7 @@ fun CreateRoomWindow(navController: NavHostController, rooms: MutableList<Room>,
                 style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
             )
         }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .size(80.dp)
-        ) {
-            TextField(
-                name.value, modifier = Modifier.fillMaxSize(),
-                textStyle = TextStyle(fontSize = 25.sp),
-                onValueChange = { name.value = it },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-            )
-        }
+        MyTextField(name)
 
         Box(
             modifier = Modifier
@@ -89,22 +77,7 @@ fun CreateRoomWindow(navController: NavHostController, rooms: MutableList<Room>,
                 style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
             )
         }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .size(80.dp)
-        ) {
-            TextField(
-                password.value, modifier = Modifier.fillMaxSize(),
-                visualTransformation = PasswordVisualTransformation(),
-                textStyle = TextStyle(fontSize = 25.sp),
-                onValueChange = { password.value = it },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Password,
-                )
-            )
-        }
+        MyTextField(password)
 
         Spacer(modifier = Modifier
             .fillMaxWidth()

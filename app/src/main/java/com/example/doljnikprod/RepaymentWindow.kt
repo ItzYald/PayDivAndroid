@@ -51,22 +51,7 @@ fun RepaymentWindow(
             navController.navigate(Routes.Room.route)
         }
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .size(120.dp),
-            contentAlignment = Alignment.CenterStart
-        ) {
-            TextField(
-                summStr.value, modifier = Modifier
-                    .fillMaxWidth()
-                    .size(70.dp),
-                textStyle = TextStyle(fontSize = 25.sp),
-                onValueChange = { summStr.value = it },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
-            )
-        }
+        MyTextField(summStr)
 
         Box(
             modifier = Modifier
