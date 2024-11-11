@@ -56,9 +56,17 @@ fun HistoryWindow(navController: NavHostController, history: MutableList<Transac
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxSize(),
-
+                        contentAlignment = Alignment.CenterStart
                         ) {
                         Text(it.money.toString(), fontSize = 30.sp)
+                    }
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.CenterStart
+                        ) {
+                        Text(it.description, fontSize = 30.sp)
                     }
                 }
             }

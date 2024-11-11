@@ -28,7 +28,7 @@ fun BackButton(onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .size(100.dp)
+            .size(80.dp)
     ) {
         IconButton(modifier = Modifier.size(80.dp),
 
@@ -39,7 +39,7 @@ fun BackButton(onClick: () -> Unit) {
 }
 
 @Composable
-fun MyTextField(state: MutableState<String>){
+fun MyTextField(state: MutableState<String>, keyboardType: KeyboardType=KeyboardType.Text){
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -53,7 +53,7 @@ fun MyTextField(state: MutableState<String>){
             textStyle = TextStyle(fontSize = 25.sp),
             onValueChange = { state.value = it },
             singleLine = true,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
+            keyboardOptions = KeyboardOptions(keyboardType = keyboardType)
         )
     }
 }

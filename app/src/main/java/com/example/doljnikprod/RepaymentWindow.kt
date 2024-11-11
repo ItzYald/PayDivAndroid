@@ -1,5 +1,6 @@
 package com.example.doljnikprod
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -26,16 +28,18 @@ fun repay(
     navController: NavHostController,
     thisRoom: Room,
     userGivedDebt: Person,
-    userRepayer: Person
+    userRepayer: Person,
+    description: String
 ) {
     val summ = summStr.toIntOrNull()
     if (summ != null) {
         navController.popBackStack()
         navController.navigate(Routes.Room.route)
-        thisRoom.setDebt(userRepayer, userGivedDebt, summ)
+        thisRoom.setDebt(userRepayer, userGivedDebt, summ, description)
     }
 }
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun RepaymentWindow(
     navController: NavHostController,
@@ -43,7 +47,9 @@ fun RepaymentWindow(
     userGivedDebt: Person,
     userRepayer: Person
 ) {
-    val summStr = remember { mutableStateOf("") }
+    val summStr = mutableStateOf("")
+    val description = mutableStateOf("")
+
 
     Column {
         BackButton() {
@@ -51,7 +57,33 @@ fun RepaymentWindow(
             navController.navigate(Routes.Room.route)
         }
 
-        MyTextField(summStr)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(40.dp),
+            contentAlignment = Alignment.TopStart
+        ) {
+            Text(
+                "Сумма",
+                fontSize = 40.sp,
+                style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
+            )
+        }
+        MyTextField(summStr, KeyboardType.Phone)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(40.dp),
+            contentAlignment = Alignment.TopStart
+        ) {
+            Text(
+                "Описание",
+                fontSize = 40.sp,
+                style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
+            )
+        }
+        MyTextField(description)
+
 
         Box(
             modifier = Modifier
@@ -63,7 +95,14 @@ fun RepaymentWindow(
                 .size(350.dp, 80.dp),
                 shape = RoundedCornerShape(20.dp),
                 onClick = {
-                    repay(summStr.value, navController, thisRoom, userGivedDebt, userRepayer)
+                    repay(
+                        summStr.value,
+                        navController,
+                        thisRoom,
+                        userGivedDebt,
+                        userRepayer,
+                        description.value
+                    )
                 }) {
                 Text("Добавить", fontSize = 35.sp)
             }

@@ -38,7 +38,7 @@ fun addCheck(
     thisDebtStr: String,
     debtorsNames: MutableList<String>,
     whoDebts: MutableList<Boolean>,
-    navController: NavHostController, thisRoom: Room, user: Person
+    navController: NavHostController, thisRoom: Room, user: Person, description : String
 ) {
     val thisdebt = thisDebtStr.toIntOrNull()
     if (thisdebt != null) {
@@ -57,7 +57,8 @@ fun addCheck(
                         thisRoom.setDebt(
                             user,
                             thisPerson,
-                            thisdebt / quantity
+                            thisdebt / quantity,
+                            description
                         )
                         break
                     }
@@ -94,13 +95,40 @@ fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Perso
     }
 
     val thisDebtStr = mutableStateOf("")
+    val description = mutableStateOf("")
+
 
     Column(verticalArrangement = Arrangement.SpaceAround) {
-        BackButton({
+        BackButton {
             navController.popBackStack()
             navController.navigate(Routes.Room.route)
-        })
-        MyTextField(thisDebtStr)
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(40.dp),
+            contentAlignment = Alignment.TopStart
+        ) {
+            Text(
+                "Сумма",
+                fontSize = 40.sp,
+                style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
+            )
+        }
+        MyTextField(thisDebtStr, KeyboardType.Phone)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(40.dp),
+            contentAlignment = Alignment.TopStart
+        ) {
+            Text(
+                "Описание",
+                fontSize = 40.sp,
+                style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
+            )
+        }
+        MyTextField(description)
 
         LazyColumn(
             modifier = Modifier
@@ -153,7 +181,7 @@ fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Perso
                 .size(350.dp, 80.dp),
                 shape = RoundedCornerShape(20.dp),
                 onClick = {
-                    addCheck(thisDebtStr.value, debtorsNames, whoDebts, navController, thisRoom, user)
+                    addCheck(thisDebtStr.value, debtorsNames, whoDebts, navController, thisRoom, user, description.value)
                 }) {
                 Text("Добавить", fontSize = 35.sp)
             }

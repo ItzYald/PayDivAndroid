@@ -38,7 +38,7 @@ fun JoinToRoomWindow(navController: NavHostController, rooms : MutableList<Room>
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .size(80.dp),
+                .size(40.dp),
             contentAlignment = Alignment.TopStart
         ) {
             Text(
@@ -47,24 +47,12 @@ fun JoinToRoomWindow(navController: NavHostController, rooms : MutableList<Room>
                 style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
             )
         }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .size(80.dp)
-        ) {
-            TextField(
-                login.value, modifier = Modifier.fillMaxSize(),
-                textStyle = TextStyle(fontSize = 25.sp),
-                onValueChange = { login.value = it },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii)
-            )
-        }
+        MyTextField(login)
         // Пароль
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .size(80.dp),
+                .size(40.dp),
             contentAlignment = Alignment.TopStart
         ) {
             Text(
@@ -73,20 +61,7 @@ fun JoinToRoomWindow(navController: NavHostController, rooms : MutableList<Room>
                 style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
             )
         }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .size(80.dp)
-        ) {
-            TextField(
-                password.value, modifier = Modifier.fillMaxSize(),
-                textStyle = TextStyle(fontSize = 25.sp),
-                visualTransformation = PasswordVisualTransformation(),
-                onValueChange = { password.value = it },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-            )
-        }
+        MyTextField(password, keyboardType = KeyboardType.Password)
 
         Spacer(modifier = Modifier
             .fillMaxWidth()

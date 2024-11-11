@@ -42,7 +42,7 @@ fun SignInWindow(navController: NavHostController) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .size(80.dp),
+                .size(40.dp),
             contentAlignment = Alignment.TopStart
         ) {
             Text(
@@ -56,7 +56,7 @@ fun SignInWindow(navController: NavHostController) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .size(80.dp),
+                .size(40.dp),
             contentAlignment = Alignment.TopStart
         ) {
             Text(
@@ -65,7 +65,7 @@ fun SignInWindow(navController: NavHostController) {
                 style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
             )
         }
-        MyTextField(password)
+        MyTextField(password, KeyboardType.Password)
 
         Spacer(modifier = Modifier
             .fillMaxWidth()
