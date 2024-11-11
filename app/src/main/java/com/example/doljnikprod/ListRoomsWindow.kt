@@ -27,116 +27,114 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
-class ListRoomsWindow(val rooms: MutableList<Room>, private val thisRoomIndex: MutableState<Int>) :
-    IDrawable {
-    @Composable
-    override fun Draw(navController: NavHostController) {
-        Column(verticalArrangement = Arrangement.SpaceBetween) {
-            BackButton {
-                navController.popBackStack()
-                navController.navigate(Routes.StartWindow.route)
+@Composable
+fun ListRoomsWindow(navController: NavHostController, rooms: MutableList<Room>, thisRoomIndex: MutableState<Int>) {
+    Column(verticalArrangement = Arrangement.SpaceBetween) {
+        BackButton {
+            navController.popBackStack()
+            navController.navigate(Routes.StartWindow.route)
+        }
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(25.dp)
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(80.dp),
+            contentAlignment = Alignment.CenterStart
+        ) {
+            Text("Комнаты", fontSize = 40.sp)
+        }
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(10.dp)
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(100.dp),
+            contentAlignment = Alignment.BottomCenter
+        ) {
+            Button(modifier = Modifier
+                .size(350.dp, 80.dp),
+                shape = RoundedCornerShape(20.dp),
+                onClick = {
+                    navController.navigate(Routes.JoinToRoom.route)
+                }) {
+                Text("Присоединиться", fontSize = 30.sp)
             }
-            Spacer(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(25.dp)
-            )
+        }
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(15.dp)
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(2.dp),
+            contentAlignment = Alignment.Center
+        ) {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .size(80.dp),
-                contentAlignment = Alignment.CenterStart
-            ) {
-                Text("Комнаты", fontSize = 40.sp)
-            }
-            Spacer(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(10.dp)
+                    .size(360.dp, 2.dp)
+                    .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(1.dp))
             )
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(100.dp),
-                contentAlignment = Alignment.BottomCenter
-            ) {
-                Button(modifier = Modifier
-                    .size(350.dp, 80.dp),
-                    shape = RoundedCornerShape(20.dp),
-                    onClick = {
-                        navController.navigate(Routes.JoinToRoom.route)
-                    }) {
-                    Text("Присоединиться", fontSize = 30.sp)
-                }
-            }
-            Spacer(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(15.dp)
-            )
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(2.dp),
-                contentAlignment = Alignment.Center
-            ) {
+        }
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(5.dp)
+        )
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(300.dp)
+                .background(color = Color(0x01060FFF))
+        ) {
+            itemsIndexed(rooms) { i, it ->
                 Box(
                     modifier = Modifier
-                        .size(360.dp, 2.dp)
-                        .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(1.dp))
-                )
-            }
-            Spacer(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(5.dp)
-            )
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(300.dp)
-                    .background(color = Color(0x01060FFF))
-            ) {
-                itemsIndexed(rooms) { i, it ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .size(100.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Button(modifier = Modifier
-                            .size(350.dp, 80.dp),
-                            shape = RoundedCornerShape(20.dp),
-                            onClick = {
-                                thisRoomIndex.value = i
-                                navController.navigate(Routes.Room.route)
-                            }) {
-                            Text(
-                                it.name,
-                                fontSize = 30.sp,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
-                        }
+                        .fillMaxWidth()
+                        .size(100.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Button(modifier = Modifier
+                        .size(350.dp, 80.dp),
+                        shape = RoundedCornerShape(20.dp),
+                        onClick = {
+                            thisRoomIndex.value = i
+                            navController.navigate(Routes.Room.route)
+                        }) {
+                        Text(
+                            it.name,
+                            fontSize = 30.sp,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
                     }
                 }
             }
-            Spacer(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(10.dp)
-            )
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd) {
-                Button(modifier = Modifier.size(80.dp),
-                    onClick = {
-                        navController.navigate(Routes.CreateRoom.route)
-                    }) {
-                    Text("+", fontSize = 40.sp)
-                }
-            }
-
-
         }
-    }
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(10.dp)
+        )
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd) {
+            Button(modifier = Modifier.size(80.dp),
+                onClick = {
+                    navController.navigate(Routes.CreateRoom.route)
+                }) {
+                Text("+", fontSize = 40.sp)
+            }
+        }
 
+
+    }
 }
+
+

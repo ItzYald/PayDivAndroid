@@ -25,121 +25,120 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
-class SignUpWindow : IDrawable {
-    @Composable
-    override fun Draw(navController: NavHostController) {
-        var login = remember { mutableStateOf("") }
-        var password = remember { mutableStateOf("") }
-        var confirmPassword = remember { mutableStateOf("") }
+
+@Composable
+fun SignUpWindow(navController: NavHostController) {
+    var login = remember { mutableStateOf("") }
+    var password = remember { mutableStateOf("") }
+    var confirmPassword = remember { mutableStateOf("") }
 
 
-        Column(verticalArrangement = Arrangement.SpaceAround) {
-            BackButton({
-                navController.popBackStack()
-                navController.navigate(Routes.StartWindow.route)
-            })
-            // Логин
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(80.dp),
-                contentAlignment = Alignment.TopStart
-            ) {
-                Text(
-                    "Логин",
-                    fontSize = 40.sp,
-                    style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(80.dp)
-            ) {
-                TextField(
-                    login.value, modifier = Modifier.fillMaxSize(),
-                    textStyle = TextStyle(fontSize = 25.sp),
-                    onValueChange = { login.value = it },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii)
-                )
-            }
-            // Пароль
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(80.dp),
-                contentAlignment = Alignment.TopStart
-            ) {
-                Text(
-                    "Пароль",
-                    fontSize = 40.sp,
-                    style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(80.dp)
-            ) {
-                TextField(
-                    password.value, modifier = Modifier.fillMaxSize(),
-                    textStyle = TextStyle(fontSize = 25.sp),
-                    visualTransformation = PasswordVisualTransformation(),
-                    onValueChange = { password.value = it },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-                )
-            }
-            // Повторить пароль
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(80.dp),
-                contentAlignment = Alignment.TopStart
-            ) {
-                Text(
-                    "Повторите пароль",
-                    fontSize = 40.sp,
-                    style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(80.dp)
-            ) {
-                TextField(
-                    confirmPassword.value, modifier = Modifier.fillMaxSize(),
-                    textStyle = TextStyle(fontSize = 25.sp),
-                    visualTransformation = PasswordVisualTransformation(),
-                    onValueChange = { confirmPassword.value = it },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-                )
-            }
-
-
-            Spacer(modifier = Modifier
+    Column(verticalArrangement = Arrangement.SpaceAround) {
+        BackButton({
+            navController.popBackStack()
+            navController.navigate(Routes.StartWindow.route)
+        })
+        // Логин
+        Box(
+            modifier = Modifier
                 .fillMaxWidth()
-                .size(20.dp))
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(80.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Button(modifier = Modifier.size(350.dp, 80.dp),
-                    shape = RoundedCornerShape(20.dp),
-                    onClick = {
-
-                    }) {
-                    Text("Добавить", fontSize = 35.sp)
-                }
-            }
-
-
+                .size(80.dp),
+            contentAlignment = Alignment.TopStart
+        ) {
+            Text(
+                "Логин",
+                fontSize = 40.sp,
+                style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
+            )
         }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(80.dp)
+        ) {
+            TextField(
+                login.value, modifier = Modifier.fillMaxSize(),
+                textStyle = TextStyle(fontSize = 25.sp),
+                onValueChange = { login.value = it },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii)
+            )
+        }
+        // Пароль
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(80.dp),
+            contentAlignment = Alignment.TopStart
+        ) {
+            Text(
+                "Пароль",
+                fontSize = 40.sp,
+                style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
+            )
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(80.dp)
+        ) {
+            TextField(
+                password.value, modifier = Modifier.fillMaxSize(),
+                textStyle = TextStyle(fontSize = 25.sp),
+                visualTransformation = PasswordVisualTransformation(),
+                onValueChange = { password.value = it },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+            )
+        }
+        // Повторить пароль
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(80.dp),
+            contentAlignment = Alignment.TopStart
+        ) {
+            Text(
+                "Повторите пароль",
+                fontSize = 40.sp,
+                style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
+            )
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(80.dp)
+        ) {
+            TextField(
+                confirmPassword.value, modifier = Modifier.fillMaxSize(),
+                textStyle = TextStyle(fontSize = 25.sp),
+                visualTransformation = PasswordVisualTransformation(),
+                onValueChange = { confirmPassword.value = it },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+            )
+        }
+
+
+        Spacer(modifier = Modifier
+            .fillMaxWidth()
+            .size(20.dp))
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(80.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Button(modifier = Modifier.size(350.dp, 80.dp),
+                shape = RoundedCornerShape(20.dp),
+                onClick = {
+
+                }) {
+                Text("Добавить", fontSize = 35.sp)
+            }
+        }
+
+
     }
 }

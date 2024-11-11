@@ -24,95 +24,91 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
-class JoinToRoomWindow (private val rooms : MutableList<Room>) : IDrawable {
-    @Composable
-    override fun Draw(navController: NavHostController) {
+@Composable
+fun JoinToRoomWindow(navController: NavHostController, rooms : MutableList<Room>) {
 
-        val login = remember { mutableStateOf("") }
-        val password = remember { mutableStateOf("") }
-        Column {
-            BackButton {
-                navController.popBackStack()
-                navController.navigate(Routes.ListRooms.route)
-            }
-            // Название
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(80.dp),
-                contentAlignment = Alignment.TopStart
-            ) {
-                Text(
-                    "Название",
-                    fontSize = 40.sp,
-                    style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(80.dp)
-            ) {
-                TextField(
-                    login.value, modifier = Modifier.fillMaxSize(),
-                    textStyle = TextStyle(fontSize = 25.sp),
-                    onValueChange = { login.value = it },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii)
-                )
-            }
-            // Пароль
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(80.dp),
-                contentAlignment = Alignment.TopStart
-            ) {
-                Text(
-                    "Пароль",
-                    fontSize = 40.sp,
-                    style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(80.dp)
-            ) {
-                TextField(
-                    password.value, modifier = Modifier.fillMaxSize(),
-                    textStyle = TextStyle(fontSize = 25.sp),
-                    visualTransformation = PasswordVisualTransformation(),
-                    onValueChange = { password.value = it },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-                )
-            }
-
-            Spacer(modifier = Modifier
+    val login = remember { mutableStateOf("") }
+    val password = remember { mutableStateOf("") }
+    Column {
+        BackButton {
+            navController.popBackStack()
+            navController.navigate(Routes.ListRooms.route)
+        }
+        // Название
+        Box(
+            modifier = Modifier
                 .fillMaxWidth()
-                .size(20.dp))
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(80.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Button(modifier = Modifier.size(350.dp, 80.dp),
-                    shape = RoundedCornerShape(20.dp),
-                    onClick = {
-
-                    }) {
-                    Text("Добавить", fontSize = 35.sp)
-                }
-            }
+                .size(80.dp),
+            contentAlignment = Alignment.TopStart
+        ) {
+            Text(
+                "Название",
+                fontSize = 40.sp,
+                style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
+            )
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(80.dp)
+        ) {
+            TextField(
+                login.value, modifier = Modifier.fillMaxSize(),
+                textStyle = TextStyle(fontSize = 25.sp),
+                onValueChange = { login.value = it },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii)
+            )
+        }
+        // Пароль
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(80.dp),
+            contentAlignment = Alignment.TopStart
+        ) {
+            Text(
+                "Пароль",
+                fontSize = 40.sp,
+                style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
+            )
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(80.dp)
+        ) {
+            TextField(
+                password.value, modifier = Modifier.fillMaxSize(),
+                textStyle = TextStyle(fontSize = 25.sp),
+                visualTransformation = PasswordVisualTransformation(),
+                onValueChange = { password.value = it },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+            )
         }
 
+        Spacer(modifier = Modifier
+            .fillMaxWidth()
+            .size(20.dp))
 
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(80.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Button(modifier = Modifier.size(350.dp, 80.dp),
+                shape = RoundedCornerShape(20.dp),
+                onClick = {
 
-
+                }) {
+                Text("Добавить", fontSize = 35.sp)
+            }
+        }
     }
+
+
 
 
 }

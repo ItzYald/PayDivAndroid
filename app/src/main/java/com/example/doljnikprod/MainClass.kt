@@ -43,11 +43,9 @@ class MainClass {
     @Composable
     fun MainFunc() {
         val navController = rememberNavController()
-        var thisDrawable: IDrawable
         NavHost(navController = navController, startDestination = Routes.ListRooms.route) {
 
             composable(Routes.Room.route) {
-
                 var userIndex: Int = 0
                 for ((i, u) in rooms[thisRoomIndex.value].users.withIndex()) {
                     if (u.name == user.name) {
@@ -56,44 +54,34 @@ class MainClass {
                     }
                 }
                 user = rooms[thisRoomIndex.value].users[userIndex]
-                thisDrawable = RoomWindow(rooms[thisRoomIndex.value], user, userGivedDebt)
-                thisDrawable.Draw(navController)
+                RoomWindow(navController, rooms[thisRoomIndex.value], user, userGivedDebt)
             }
             composable(Routes.ListRooms.route) {
-                thisDrawable = ListRoomsWindow(rooms, thisRoomIndex)
-                thisDrawable.Draw(navController)
+                ListRoomsWindow(navController, rooms, thisRoomIndex)
             }
             composable(Routes.AddCheck.route) {
-                thisDrawable = AddCheckWindow(rooms[thisRoomIndex.value], user)
-                thisDrawable.Draw(navController)
+                AddCheckWindow(navController, rooms[thisRoomIndex.value], user)
             }
             composable(Routes.SignIn.route) {
-                thisDrawable = SignInWindow()
-                thisDrawable.Draw(navController)
+                SignInWindow(navController)
             }
             composable(Routes.SignUp.route) {
-                thisDrawable = SignUpWindow()
-                thisDrawable.Draw(navController)
+                SignUpWindow(navController)
             }
             composable(Routes.CreateRoom.route) {
-                thisDrawable = CreateRoomWindow(rooms, user.name)
-                thisDrawable.Draw(navController)
+                CreateRoomWindow(navController, rooms, user.name)
             }
             composable(Routes.History.route) {
-                thisDrawable = HistoryWindow(user.history)
-                thisDrawable.Draw(navController)
+                HistoryWindow(navController, user.history)
             }
             composable(Routes.Repayment.route) {
-                thisDrawable = RepaymentWindow(rooms[thisRoomIndex.value], userGivedDebt.value, user)
-                thisDrawable.Draw(navController)
+                RepaymentWindow(navController, rooms[thisRoomIndex.value], userGivedDebt.value, user)
             }
             composable(Routes.JoinToRoom.route) {
-                thisDrawable = JoinToRoomWindow(rooms)
-                thisDrawable.Draw(navController)
+                JoinToRoomWindow(navController, rooms)
             }
             composable(Routes.StartWindow.route) {
-                thisDrawable = StartWindow()
-                thisDrawable.Draw(navController)
+                StartWindow(navController)
             }
         }
     }

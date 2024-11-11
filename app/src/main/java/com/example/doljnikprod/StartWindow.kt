@@ -15,58 +15,55 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
-class StartWindow : IDrawable {
-    @Composable
-    override fun Draw(navController: NavHostController) {
-        Column {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(100.dp),
-                contentAlignment = Alignment.BottomCenter
-            ) {
-                Button(modifier = Modifier
-                    .size(350.dp, 80.dp),
-                    shape = RoundedCornerShape(20.dp),
-                    onClick = {
-                        navController.navigate(Routes.SignIn.route)
-                    }) {
-                    Text("Вход", fontSize = 40.sp)
-                }
+@Composable
+fun StartWindow(navController: NavHostController) {
+    Column {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(100.dp),
+            contentAlignment = Alignment.BottomCenter
+        ) {
+            Button(modifier = Modifier
+                .size(350.dp, 80.dp),
+                shape = RoundedCornerShape(20.dp),
+                onClick = {
+                    navController.navigate(Routes.SignIn.route)
+                }) {
+                Text("Вход", fontSize = 40.sp)
             }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(120.dp),
-                contentAlignment = Alignment.BottomCenter
-            ) {
-                Button(modifier = Modifier
-                    .size(350.dp, 80.dp),
-                    shape = RoundedCornerShape(20.dp),
-                    onClick = {
-                        navController.navigate(Routes.SignUp.route)
-                    }) {
-                    Text("Регистрация", fontSize = 40.sp)
-                }
-            }
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(120.dp),
-                contentAlignment = Alignment.BottomCenter
-            ) {
-                Button(modifier = Modifier
-                    .size(350.dp, 80.dp),
-                    shape = RoundedCornerShape(20.dp),
-                    onClick = {
-                        navController.navigate(Routes.ListRooms.route)
-                    }) {
-                    Text("Пропустить", fontSize = 40.sp)
-                }
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(120.dp),
+            contentAlignment = Alignment.BottomCenter
+        ) {
+            Button(modifier = Modifier
+                .size(350.dp, 80.dp),
+                shape = RoundedCornerShape(20.dp),
+                onClick = {
+                    navController.navigate(Routes.SignUp.route)
+                }) {
+                Text("Регистрация", fontSize = 40.sp)
             }
         }
 
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(120.dp),
+            contentAlignment = Alignment.BottomCenter
+        ) {
+            Button(modifier = Modifier
+                .size(350.dp, 80.dp),
+                shape = RoundedCornerShape(20.dp),
+                onClick = {
+                    navController.navigate(Routes.ListRooms.route)
+                }) {
+                Text("Пропустить", fontSize = 40.sp)
+            }
+        }
     }
 
 }

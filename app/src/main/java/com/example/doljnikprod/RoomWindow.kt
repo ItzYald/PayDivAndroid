@@ -33,59 +33,58 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
-class RoomWindow (private val thisRoom: Room, private val user: Person, var userGivedDebt: MutableState<Person>) : IDrawable {
 
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-    @Composable
-    override fun Draw(navController: NavHostController) {
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun RoomWindow(navController: NavHostController, thisRoom: Room, user: Person, userGivedDebt: MutableState<Person>) {
 
-        var total = 0
+    var total = 0
 
-        var debtors = remember { mutableMapOf<String, Int>() }
+    var debtors = remember { mutableMapOf<String, Int>() }
 
-        val debtorsNames = remember { mutableListOf<String>() }
-        val debtorsDebt = remember { mutableListOf<Int>() }
-        debtorsDebt.clear()
-        debtorsNames.clear()
+    val debtorsNames = remember { mutableListOf<String>() }
+    val debtorsDebt = remember { mutableListOf<Int>() }
+    debtorsDebt.clear()
+    debtorsNames.clear()
 
-        for (i in thisRoom.users) {
-            if (user.name == i.name) {
-                debtors = i.debtors
-            }
+    for (i in thisRoom.users) {
+        if (user.name == i.name) {
+            debtors = i.debtors
         }
+    }
 
-        for (i in debtors) {
-            if (user.name != i.key) {
-                debtorsNames.add(i.key)
-                debtorsDebt.add(i.value)
-                total += i.value
-            }
+    for (i in debtors) {
+        if (user.name != i.key) {
+            debtorsNames.add(i.key)
+            debtorsDebt.add(i.value)
+            total += i.value
         }
+    }
 
-        Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
-            Box(modifier = Modifier.fillMaxWidth().size(100.dp)){
-                Row (horizontalArrangement = Arrangement.SpaceBetween){
-                    IconButton(modifier = Modifier.size(80.dp),
+    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
+        Box(modifier = Modifier.fillMaxWidth().size(100.dp)){
+            Row (horizontalArrangement = Arrangement.SpaceBetween){
+                IconButton(modifier = Modifier.size(80.dp),
 
-                        onClick = {
-                            navController.popBackStack()
-                            navController.navigate(Routes.ListRooms.route)
-                        } ) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "", modifier = Modifier.size(35.dp))
+                    onClick = {
+                        navController.popBackStack()
+                        navController.navigate(Routes.ListRooms.route)
+                    } ) {
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "", modifier = Modifier.size(35.dp))
+                }
+                Spacer(modifier = Modifier.size(10.dp))
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .size(80.dp),
+                    shape = RoundedCornerShape(20.dp),
+
+                    onClick = {
+                        navController.navigate(Routes.History.route)
                     }
-                    Spacer(modifier = Modifier.size(10.dp))
-                    Button(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .size(80.dp),
-                        shape = RoundedCornerShape(20.dp),
-
-                        onClick = {
-                            navController.navigate(Routes.History.route)
-                        }
-                    ) {
-                        Text("История", fontSize = 35.sp)
-                    }
+                ) {
+                    Text("История", fontSize = 35.sp)
+                }
 //                    IconButton(
 //                        modifier = Modifier
 //                            .fillMaxWidth()
@@ -96,87 +95,84 @@ class RoomWindow (private val thisRoom: Room, private val user: Person, var user
 //                    ) {
 //                        Icon(Icons.Outlined.Br, contentDescription = "", modifier = Modifier.size(35.dp))
 //                    }
-                }
             }
-            Box(
-                modifier = Modifier
-                    .weight(0.8f)
-                    .fillMaxSize(),
-                contentAlignment = Alignment.TopStart
-            ) {
-                Text(
-                    thisRoom.name + "\nИтог: " + total.toString(),
-                    fontSize = 40.sp,
-                    style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
-                )
-            }
-            LazyColumn(modifier = Modifier
-                .weight(4f)
-                .fillMaxSize()) {
-                itemsIndexed(debtorsNames) { i, it ->
-                    Row(
-                        horizontalArrangement = Arrangement.SpaceAround,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .size(70.dp)
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .weight(1.5f)
-                                .fillMaxSize(),
-                            contentAlignment = Alignment.CenterStart
-                        ) {
-                            Text(
-                                it,
-                                fontSize = 30.sp,
-                                style = TextStyle(textIndent = TextIndent(5.sp, 5.sp))
-                            )
-                        }
-                        Box(
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxSize(),
-                            contentAlignment = Alignment.CenterEnd
-                        ) {
-                            Text(debtorsDebt[i].toString(), fontSize = 30.sp)
-                        }
-                        Box(
-                            modifier = Modifier
-                                .weight(0.8f)
-                                .fillMaxSize(),
-                            contentAlignment = Alignment.CenterEnd
-                        ) {
-                            IconButton(modifier = Modifier.size(80.dp),
-                                onClick = {
-                                    userGivedDebt.value = thisRoom.users[i + 1]
-                                    navController.navigate(Routes.Repayment.route)
-                                }) {
-                                Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = "", modifier = Modifier.size(40.dp))
-                            }
-                        }
-                    }
-                }
-            }
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(120.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Button(
+        }
+        Box(
+            modifier = Modifier
+                .weight(0.8f)
+                .fillMaxSize(),
+            contentAlignment = Alignment.TopStart
+        ) {
+            Text(
+                thisRoom.name + "\nИтог: " + total.toString(),
+                fontSize = 40.sp,
+                style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
+            )
+        }
+        LazyColumn(modifier = Modifier
+            .weight(4f)
+            .fillMaxSize()) {
+            itemsIndexed(debtorsNames) { i, it ->
+                Row(
+                    horizontalArrangement = Arrangement.SpaceAround,
                     modifier = Modifier
-                        .size(350.dp, 80.dp),
-                    shape = RoundedCornerShape(20.dp),
-                    onClick = {
-                        navController.navigate(Routes.AddCheck.route)
-                    }
+                        .fillMaxWidth()
+                        .size(70.dp)
                 ) {
-                    Text("Добавить чек", fontSize = 35.sp)
+                    Box(
+                        modifier = Modifier
+                            .weight(1.5f)
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+                        Text(
+                            it,
+                            fontSize = 30.sp,
+                            style = TextStyle(textIndent = TextIndent(5.sp, 5.sp))
+                        )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.CenterEnd
+                    ) {
+                        Text(debtorsDebt[i].toString(), fontSize = 30.sp)
+                    }
+                    Box(
+                        modifier = Modifier
+                            .weight(0.8f)
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.CenterEnd
+                    ) {
+                        IconButton(modifier = Modifier.size(80.dp),
+                            onClick = {
+                                userGivedDebt.value = thisRoom.users[i + 1]
+                                navController.navigate(Routes.Repayment.route)
+                            }) {
+                            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = "", modifier = Modifier.size(40.dp))
+                        }
+                    }
                 }
             }
         }
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(120.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Button(
+                modifier = Modifier
+                    .size(350.dp, 80.dp),
+                shape = RoundedCornerShape(20.dp),
+                onClick = {
+                    navController.navigate(Routes.AddCheck.route)
+                }
+            ) {
+                Text("Добавить чек", fontSize = 35.sp)
+            }
+        }
     }
-
-
 }
