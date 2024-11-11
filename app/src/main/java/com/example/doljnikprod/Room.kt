@@ -20,8 +20,8 @@ class Room(val id: Int, val name: String, val password: String, creatorName: Str
     }
 
     fun setDebt(person1: Person, person2: Person, debt: Int) {
-        person1.adddebtPlus(person2.name, debt)
-        person2.adddebtMinus(person1.name, debt)
+        person1.addDebtPlus(person2.name, debt)
+        person2.addDebtMinus(person1.name, debt)
     }
 
 }

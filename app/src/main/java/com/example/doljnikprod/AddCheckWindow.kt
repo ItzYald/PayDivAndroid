@@ -34,22 +34,22 @@ import androidx.navigation.NavHostController
 
 
 fun addCheck(
-    thisdebtStr: String,
+    thisDebtStr: String,
     debtorsNames: MutableList<String>,
-    whodebts: MutableList<Boolean>,
+    whoDebts: MutableList<Boolean>,
     navController: NavHostController, thisRoom: Room, user: Person
 ) {
-    val thisdebt = thisdebtStr.toIntOrNull()
+    val thisdebt = thisDebtStr.toIntOrNull()
     if (thisdebt != null) {
         var quantity = 0
-        for (w in whodebts) {
+        for (w in whoDebts) {
             if (w) quantity += 1;
         }
 
         for (d in user.debtors) {
             for (thisPerson in thisRoom.users) {
                 if (debtorsNames.indexOf(d.key) != -1) {
-                    if (thisPerson.name == d.key && whodebts[debtorsNames.indexOf(
+                    if (thisPerson.name == d.key && whoDebts[debtorsNames.indexOf(
                             d.key
                         )]
                     ) {
@@ -75,8 +75,8 @@ fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Perso
 
     val debtorsNames = remember { mutableStateListOf<String>() }
     debtorsNames.clear()
-    val whodebts = remember { mutableStateListOf<Boolean>() }
-    whodebts.clear()
+    val whoDebts = remember { mutableStateListOf<Boolean>() }
+    whoDebts.clear()
 
     for (i in thisRoom.users) {
         if (user.name == i.name) {
@@ -87,11 +87,11 @@ fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Perso
     for (i in debtors) {
         if (user.name != i.key) {
             debtorsNames.add(i.key)
-            whodebts.add(false)
+            whoDebts.add(false)
         }
     }
 
-    var thisdebtStr by rememberSaveable { mutableStateOf("") }
+    var thisDebtStr by rememberSaveable { mutableStateOf("") }
 
     Column(verticalArrangement = Arrangement.SpaceAround) {
         BackButton({
@@ -105,11 +105,11 @@ fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Perso
             contentAlignment = Alignment.CenterStart
         ) {
             TextField(
-                thisdebtStr, modifier = Modifier
+                thisDebtStr, modifier = Modifier
                     .fillMaxWidth()
                     .size(70.dp),
                 textStyle = TextStyle(fontSize = 25.sp),
-                onValueChange = { thisdebtStr = it },
+                onValueChange = { thisDebtStr = it },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
             )
@@ -148,8 +148,8 @@ fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Perso
                         contentAlignment = Alignment.CenterEnd
                     ) {
                         Checkbox(
-                            checked = whodebts[i],
-                            onCheckedChange = { whodebts[i] = it }
+                            checked = whoDebts[i],
+                            onCheckedChange = { whoDebts[i] = it }
                         )
                     }
                 }
@@ -166,7 +166,7 @@ fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Perso
                 .size(350.dp, 80.dp),
                 shape = RoundedCornerShape(20.dp),
                 onClick = {
-                    addCheck(thisdebtStr, debtorsNames, whodebts, navController, thisRoom, user)
+                    addCheck(thisDebtStr, debtorsNames, whoDebts, navController, thisRoom, user)
                 }) {
                 Text("Добавить", fontSize = 35.sp)
             }

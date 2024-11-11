@@ -21,7 +21,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 
-fun repay(summStr: String, navController: NavHostController, thisRoom: Room, userGivedDebt: Person, userRepayer: Person) {
+fun repay(
+    summStr: String,
+    navController: NavHostController,
+    thisRoom: Room,
+    userGivedDebt: Person,
+    userRepayer: Person
+) {
     val summ = summStr.toIntOrNull()
     if (summ != null) {
         navController.popBackStack()
@@ -31,7 +37,12 @@ fun repay(summStr: String, navController: NavHostController, thisRoom: Room, use
 }
 
 @Composable
-fun RepaymentWindow(navController: NavHostController, thisRoom: Room, userGivedDebt: Person, userRepayer: Person) {
+fun RepaymentWindow(
+    navController: NavHostController,
+    thisRoom: Room,
+    userGivedDebt: Person,
+    userRepayer: Person
+) {
     val summStr = remember { mutableStateOf("") }
 
     Column {

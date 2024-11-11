@@ -107,8 +107,4 @@ fun JoinToRoomWindow(navController: NavHostController, rooms : MutableList<Room>
             }
         }
     }
-
-
-
-
 }

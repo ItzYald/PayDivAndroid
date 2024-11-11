@@ -1,7 +1,5 @@
 package com.example.doljnikprod;
 
-import android.app.Person
-
 data class Transaction (val name: String, val money: Int)
 
 class Person(val name: String) {
@@ -13,11 +11,12 @@ class Person(val name: String) {
         debtors[name] = 0
     }
 
-    fun adddebtPlus(person: String, debt: Int){
+    fun addDebtPlus(person: String, debt: Int){
         debtors[person] = debtors[person]!! + debt
         history.add(Transaction(person, debt))
     }
-    fun adddebtMinus(person: String, debt: Int){
+
+    fun addDebtMinus(person: String, debt: Int){
         debtors[person] = debtors[person]!! - debt
         history.add(Transaction(person, -debt))
     }

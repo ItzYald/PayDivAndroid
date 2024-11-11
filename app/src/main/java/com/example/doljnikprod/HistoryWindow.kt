@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -21,14 +22,18 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 @Composable
-fun HistoryWindow(navController: NavHostController, history : MutableList<Transaction>) {
+fun HistoryWindow(navController: NavHostController, history: MutableList<Transaction>) {
     Column(verticalArrangement = Arrangement.SpaceAround) {
-        BackButton { navController.popBackStack()
-            navController.navigate(Routes.Room.route) }
-        LazyColumn(modifier = Modifier.
-            weight(1f)
-            .fillMaxSize()) {
-            itemsIndexed(history) { i, it ->
+        BackButton {
+            navController.popBackStack()
+            navController.navigate(Routes.Room.route)
+        }
+        LazyColumn(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxSize()
+        ) {
+            items(history) { it ->
                 Row(
                     horizontalArrangement = Arrangement.SpaceAround,
                     modifier = Modifier
@@ -52,7 +57,7 @@ fun HistoryWindow(navController: NavHostController, history : MutableList<Transa
                             .weight(1f)
                             .fillMaxSize(),
 
-                    ) {
+                        ) {
                         Text(it.money.toString(), fontSize = 30.sp)
                     }
                 }
@@ -60,7 +65,6 @@ fun HistoryWindow(navController: NavHostController, history : MutableList<Transa
         }
 
     }
-
 
 
 }
