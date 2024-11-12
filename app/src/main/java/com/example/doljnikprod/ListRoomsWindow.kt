@@ -14,8 +14,14 @@ import androidx.compose.foundation.layout.windowInsetsEndWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -26,6 +32,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.doljnikprod.ui.theme.myBlack
 
 @Composable
 fun ListRoomsWindow(navController: NavHostController, rooms: MutableList<Room>, thisRoomIndex: MutableState<Int>) {
@@ -124,12 +131,13 @@ fun ListRoomsWindow(navController: NavHostController, rooms: MutableList<Room>, 
                 .fillMaxWidth()
                 .size(10.dp)
         )
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd) {
-            Button(modifier = Modifier.size(80.dp),
-                onClick = {
-                    navController.navigate(Routes.CreateRoom.route)
-                }) {
-                Text("+", fontSize = 40.sp)
+
+        Box(
+            modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd
+        ) {
+            FloatingActionButton(modifier = Modifier.size(80.dp), shape = CircleShape,
+                onClick = { navController.navigate(Routes.CreateRoom.route) }) {
+                Icon(Icons.Filled.Add, contentDescription = "", modifier = Modifier.size(35.dp))
             }
         }
 

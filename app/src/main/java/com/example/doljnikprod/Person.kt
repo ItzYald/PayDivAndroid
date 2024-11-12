@@ -13,12 +13,12 @@ class Person(val name: String) {
 
     fun addDebtPlus(person: String, debt: Int, description: String){
         debtors[person] = debtors[person]!! + debt
-        history.add(Transaction(person, debt, description))
+        history.add(0, Transaction(person, debt, description))
     }
 
     fun addDebtMinus(person: String, debt: Int, description: String){
         debtors[person] = debtors[person]!! - debt
-        history.add(Transaction(person, -debt, description))
+        history.add(0, Transaction(person, -debt, description))
     }
 
 }
