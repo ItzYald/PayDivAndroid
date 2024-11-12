@@ -12,4 +12,5 @@ sealed class Routes(val route: String) {
     data object Repayment : Routes("Repayment")
     data object JoinToRoom : Routes("JoinToRoom")
     data object StartWindow : Routes("StartWindow")
+    data object ViewingTransaction : Routes("ViewingTransaction")
 }

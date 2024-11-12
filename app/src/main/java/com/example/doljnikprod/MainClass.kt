@@ -15,6 +15,8 @@ class MainClass {
 
     private var userGivedDebt : MutableState<Person>
 
+    private var thisTransaction: MutableState<Transaction>
+
     private var user = Person("Петя")
 
     init {
@@ -38,6 +40,7 @@ class MainClass {
         rooms[1].addPerson("ывап")
         thisRoomIndex = mutableStateOf(0)
         userGivedDebt = mutableStateOf<Person>(rooms[0].users[1])
+        thisTransaction = mutableStateOf(Transaction("", 0, "", ""))
     }
 
     @Composable
@@ -72,7 +75,7 @@ class MainClass {
                 CreateRoomWindow(navController, rooms, user.name)
             }
             composable(Routes.History.route) {
-                HistoryWindow(navController, user.history)
+                HistoryWindow(navController, user.history, thisTransaction)
             }
             composable(Routes.Repayment.route) {
                 RepaymentWindow(navController, rooms[thisRoomIndex.value], userGivedDebt.value, user)
@@ -82,6 +85,9 @@ class MainClass {
             }
             composable(Routes.StartWindow.route) {
                 StartWindow(navController)
+            }
+            composable(Routes.ViewingTransaction.route) {
+                ViewingTransactionWindow(navController, thisTransaction)
             }
         }
     }

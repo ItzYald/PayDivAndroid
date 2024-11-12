@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.rounded.DateRange
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
@@ -72,29 +73,17 @@ fun RoomWindow(navController: NavHostController, thisRoom: Room, user: Person, u
                     } ) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "", modifier = Modifier.size(35.dp))
                 }
-                Spacer(modifier = Modifier.size(10.dp))
-                Button(
+                Spacer(modifier = Modifier.size(100.dp))
+                IconButton(
                     modifier = Modifier
                         .fillMaxWidth()
                         .size(80.dp),
-                    shape = RoundedCornerShape(20.dp),
-
                     onClick = {
                         navController.navigate(Routes.History.route)
                     }
                 ) {
-                    Text("История", fontSize = 35.sp)
+                    Icon(Icons.Rounded.DateRange, contentDescription = "", modifier = Modifier.size(35.dp))
                 }
-//                    IconButton(
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .size(80.dp),
-//                        onClick = {
-//                            navController.navigate(Routes.History.route)
-//                        }
-//                    ) {
-//                        Icon(Icons.Outlined.Br, contentDescription = "", modifier = Modifier.size(35.dp))
-//                    }
             }
         }
         Box(

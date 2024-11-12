@@ -10,9 +10,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -22,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 @Composable
-fun HistoryWindow(navController: NavHostController, history: MutableList<Transaction>) {
+fun HistoryWindow(navController: NavHostController, history: MutableList<Transaction>, thisTransaction: MutableState<Transaction>) {
     Column(verticalArrangement = Arrangement.SpaceAround) {
         BackButton {
             navController.popBackStack()
@@ -62,11 +68,17 @@ fun HistoryWindow(navController: NavHostController, history: MutableList<Transac
                     }
                     Box(
                         modifier = Modifier
-                            .weight(1f)
+                            .weight(0.8f)
                             .fillMaxSize(),
-                        contentAlignment = Alignment.CenterStart
-                        ) {
-                        Text(it.description, fontSize = 30.sp)
+                        contentAlignment = Alignment.CenterEnd
+                    ) {
+                        IconButton(modifier = Modifier.size(80.dp),
+                            onClick = {
+                                thisTransaction.value = it
+                                navController.navigate(Routes.ViewingTransaction.route)
+                            }) {
+                            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = "", modifier = Modifier.size(40.dp))
+                        }
                     }
                 }
             }
