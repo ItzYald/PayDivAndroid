@@ -20,6 +20,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -69,7 +70,7 @@ fun MyTextField(state: MutableState<String>, keyboardType: KeyboardType=Keyboard
         TextField(
             state.value, modifier = Modifier
                 .fillMaxWidth()
-                .size(70.dp),
+                .size(dimensionResource(R.dimen.text_filed_height)),
             textStyle = TextStyle(fontSize = 25.sp),
             onValueChange = { state.value = it },
             singleLine = true,

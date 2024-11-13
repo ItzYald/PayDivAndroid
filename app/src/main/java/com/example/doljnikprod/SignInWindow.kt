@@ -17,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -46,7 +47,7 @@ fun SignInWindow(navController: NavHostController) {
             contentAlignment = Alignment.TopStart
         ) {
             Text(
-                "Логин",
+                stringResource(R.string.login),
                 fontSize = 40.sp,
                 style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
             )
@@ -60,7 +61,7 @@ fun SignInWindow(navController: NavHostController) {
             contentAlignment = Alignment.TopStart
         ) {
             Text(
-                "Пароль",
+                stringResource(R.string.password),
                 fontSize = 40.sp,
                 style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
             )
@@ -82,7 +83,7 @@ fun SignInWindow(navController: NavHostController) {
                 onClick = {
 
                 }) {
-                Text("Добавить", fontSize = 35.sp)
+                Text(stringResource(R.string.add), fontSize = 35.sp)
             }
         }
 

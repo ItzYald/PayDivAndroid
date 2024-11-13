@@ -4,7 +4,12 @@ import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat
 import java.util.Date
 
-data class Transaction(val name: String, val money: Int, val description: String, val date: String="")
+data class Transaction(
+    val name: String,
+    val money: Int,
+    val description: String,
+    val date: String = ""
+)
 
 class Person(val name: String) {
     // Map (key: person name, mean: dips)

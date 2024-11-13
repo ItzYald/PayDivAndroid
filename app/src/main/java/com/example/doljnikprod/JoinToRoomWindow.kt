@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -56,7 +57,7 @@ fun JoinToRoomWindow(navController: NavHostController, rooms : MutableList<Room>
             contentAlignment = Alignment.TopStart
         ) {
             Text(
-                "Пароль",
+                stringResource(R.string.password),
                 fontSize = 40.sp,
                 style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
             )
@@ -78,7 +79,7 @@ fun JoinToRoomWindow(navController: NavHostController, rooms : MutableList<Room>
                 onClick = {
 
                 }) {
-                Text("Добавить", fontSize = 35.sp)
+                Text(stringResource(R.string.add), fontSize = 35.sp)
             }
         }
     }

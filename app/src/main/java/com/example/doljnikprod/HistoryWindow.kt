@@ -68,7 +68,7 @@ fun HistoryWindow(navController: NavHostController, history: MutableList<Transac
                     }
                     Box(
                         modifier = Modifier
-                            .weight(0.8f)
+                            .weight(0.5f)
                             .fillMaxSize(),
                         contentAlignment = Alignment.CenterEnd
                     ) {

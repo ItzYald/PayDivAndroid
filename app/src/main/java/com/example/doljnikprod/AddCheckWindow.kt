@@ -26,6 +26,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextIndent
@@ -110,7 +112,7 @@ fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Perso
             contentAlignment = Alignment.TopStart
         ) {
             Text(
-                "Сумма",
+                stringResource(R.string.sum),
                 fontSize = 40.sp,
                 style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
             )
@@ -123,7 +125,7 @@ fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Perso
             contentAlignment = Alignment.TopStart
         ) {
             Text(
-                "Описание",
+                stringResource(R.string.description),
                 fontSize = 40.sp,
                 style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
             )
@@ -178,12 +180,12 @@ fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Perso
             contentAlignment = Alignment.Center
         ) {
             Button(modifier = Modifier
-                .size(350.dp, 80.dp),
+                .size(dimensionResource(R.dimen.standart_button_weight), 80.dp),
                 shape = RoundedCornerShape(20.dp),
                 onClick = {
                     addCheck(thisDebtStr.value, debtorsNames, whoDebts, navController, thisRoom, user, description.value)
                 }) {
-                Text("Добавить", fontSize = 35.sp)
+                Text(stringResource(R.string.add), fontSize = 35.sp)
             }
         }
 
