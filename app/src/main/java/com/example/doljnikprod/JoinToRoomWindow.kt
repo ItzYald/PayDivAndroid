@@ -43,7 +43,7 @@ fun JoinToRoomWindow(navController: NavHostController, rooms : MutableList<Room>
             contentAlignment = Alignment.TopStart
         ) {
             Text(
-                "Название",
+                stringResource(R.string.name),
                 fontSize = 40.sp,
                 style = TextStyle(textIndent = TextIndent(20.sp, 20.sp))
             )

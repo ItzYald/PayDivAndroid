@@ -4,10 +4,11 @@
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="add">Добавить</string>
-    <string name="repeat_password">Добавить</string>
+    <string name="repeat_password">Повторить пароль</string>
     <string name="description">Описание</string>
     <string name="sum">Сумма</string>
     <string name="sign_in">Вход</string>
     <string name="sign_up">Регистрация</string>
     <string name="skip">Пропустить</string>
+    <string name="name">Название</string>
 </resources>

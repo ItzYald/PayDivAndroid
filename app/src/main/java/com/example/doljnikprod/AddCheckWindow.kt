@@ -1,5 +1,8 @@
 package com.example.doljnikprod
 
+import com.example.doljnikprod.viewModel.AddCheckViewModel
+import com.example.doljnikprod.model.AddCheckData
+
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,18 +15,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -35,46 +33,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
-
-fun addCheck(
-    thisDebtStr: String,
-    debtorsNames: MutableList<String>,
-    whoDebts: MutableList<Boolean>,
-    navController: NavHostController, thisRoom: Room, user: Person, description : String
-) {
-    val thisdebt = thisDebtStr.toIntOrNull()
-    if (thisdebt != null) {
-        var quantity = 0
-        for (w in whoDebts) {
-            if (w) quantity += 1;
-        }
-
-        for (d in user.debtors) {
-            for (thisPerson in thisRoom.users) {
-                if (debtorsNames.indexOf(d.key) != -1) {
-                    if (thisPerson.name == d.key && whoDebts[debtorsNames.indexOf(
-                            d.key
-                        )]
-                    ) {
-                        thisRoom.setDebt(
-                            user,
-                            thisPerson,
-                            thisdebt / quantity,
-                            description
-                        )
-                        break
-                    }
-                }
-            }
-        }
-        navController.popBackStack()
-        navController.navigate(Routes.Room.route)
-    }
-}
-
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Person) {
+fun AddCheckWindow(
+    navController: NavHostController,
+    room: Room,
+    user: Person,
+    addCheckViewModel: AddCheckViewModel
+) {
     var debtors = remember { mutableMapOf<String, Int>() }
 
 
@@ -83,7 +49,7 @@ fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Perso
     val whoDebts = remember { mutableStateListOf<Boolean>() }
     whoDebts.clear()
 
-    for (i in thisRoom.users) {
+    for (i in room.users) {
         if (user.name == i.name) {
             debtors = i.debtors
         }
@@ -101,10 +67,12 @@ fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Perso
 
 
     Column(verticalArrangement = Arrangement.SpaceAround) {
+
         BackButton {
             navController.popBackStack()
             navController.navigate(Routes.Room.route)
         }
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -183,7 +151,18 @@ fun AddCheckWindow(navController: NavHostController, thisRoom: Room, user: Perso
                 .size(dimensionResource(R.dimen.standart_button_weight), 80.dp),
                 shape = RoundedCornerShape(20.dp),
                 onClick = {
-                    addCheck(thisDebtStr.value, debtorsNames, whoDebts, navController, thisRoom, user, description.value)
+
+                    val data = AddCheckData(
+                        thisDebtStr.value,
+                        debtorsNames,
+                        whoDebts,
+                        navController,
+                        room,
+                        user,
+                        description.value
+                    )
+
+                    addCheckViewModel.update(data)
                 }) {
                 Text(stringResource(R.string.add), fontSize = 35.sp)
             }

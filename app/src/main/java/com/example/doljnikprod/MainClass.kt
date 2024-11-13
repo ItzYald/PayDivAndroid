@@ -1,5 +1,7 @@
 package com.example.doljnikprod
 
+import com.example.doljnikprod.viewModel.AddCheckViewModel
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -18,6 +20,8 @@ class MainClass {
     private var thisTransaction: MutableState<Transaction>
 
     private var user = Person("Петя")
+
+    private val addCheckViewModel : AddCheckViewModel
 
     init {
         rooms.add(Room(0, "должники лины ", "lol", user.name))
@@ -41,6 +45,9 @@ class MainClass {
         thisRoomIndex = mutableStateOf(0)
         userGivedDebt = mutableStateOf<Person>(rooms[0].users[1])
         thisTransaction = mutableStateOf(Transaction("", 0, "", ""))
+
+        addCheckViewModel = AddCheckViewModel()
+
     }
 
     @Composable
@@ -63,7 +70,7 @@ class MainClass {
                 ListRoomsWindow(navController, rooms, thisRoomIndex)
             }
             composable(Routes.AddCheck.route) {
-                AddCheckWindow(navController, rooms[thisRoomIndex.value], user)
+                AddCheckWindow(navController, rooms[thisRoomIndex.value], user, addCheckViewModel)
             }
             composable(Routes.SignIn.route) {
                 SignInWindow(navController)
