@@ -1,6 +1,9 @@
 package com.example.doljnikprod
 
-class Room(val id: Int, val name: String, val password: String, creatorName: String) {
+import android.os.Parcel
+import android.os.Parcelable
+
+class Room(val id: Int, val name: String, val password: String, val creatorName: String) : Parcelable  {
     val users = ArrayList<Person>()
 
     init {
@@ -23,5 +26,28 @@ class Room(val id: Int, val name: String, val password: String, creatorName: Str
         person1.addDebtPlus(person2.name, debt, description)
         person2.addDebtMinus(person1.name, debt, description)
     }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeInt(id)
+        dest.writeString(name)
+        dest.writeString(password)
+        dest.writeString(creatorName)
+    }
+
+    companion object CREATOR : Parcelable.Creator<Room> {
+        override fun createFromParcel(parcel: Parcel): Room? {
+            return parcel.readString()
+                ?.let { Room(parcel.readInt(), it, parcel.readString()!!, parcel.readString()!!) }
+        }
+        override fun newArray(size: Int): Array<Room?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+
 
 }

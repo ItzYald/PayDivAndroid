@@ -1,13 +1,26 @@
 package com.example.doljnikprod.viewModel
 
-import com.example.doljnikprod.model.addCheck
+import androidx.lifecycle.ViewModel
+import androidx.navigation.NavHostController
+import com.example.doljnikprod.Room
 import com.example.doljnikprod.model.AddCheckData
 
-class AddCheckViewModel : IObserver {
-    override fun update(a: Any) {
-        val data = (a as? AddCheckData) ?: return
+import com.example.doljnikprod.Routes
+import com.example.doljnikprod.model.addCheck
 
-        addCheck(data)
+class AddCheckViewModel() : ViewModel() {
+
+    fun goBackToRoom(navController: NavHostController){
+        navController.popBackStack()
+        navController.navigate(Routes.Room.route)
     }
+
+    fun addCheckViewModel(data: AddCheckData, thisRoom: Room) {
+        addCheck(data, thisRoom)
+
+    }
+
+
+
 }
 

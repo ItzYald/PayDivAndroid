@@ -64,7 +64,7 @@ fun MyTextField(state: MutableState<String>, keyboardType: KeyboardType=Keyboard
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .size(120.dp),
+            .size(90.dp),
         contentAlignment = Alignment.CenterStart
     ) {
         TextField(

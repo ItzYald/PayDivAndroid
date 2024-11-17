@@ -25,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
@@ -45,9 +46,7 @@ fun AddCheckWindow(
 
 
     val debtorsNames = remember { mutableStateListOf<String>() }
-    debtorsNames.clear()
     val whoDebts = remember { mutableStateListOf<Boolean>() }
-    whoDebts.clear()
 
     for (i in room.users) {
         if (user.name == i.name) {
@@ -69,8 +68,7 @@ fun AddCheckWindow(
     Column(verticalArrangement = Arrangement.SpaceAround) {
 
         BackButton {
-            navController.popBackStack()
-            navController.navigate(Routes.Room.route)
+            addCheckViewModel.goBackToRoom(navController)
         }
 
         Box(
@@ -99,6 +97,47 @@ fun AddCheckWindow(
             )
         }
         MyTextField(description)
+
+        Row {
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .size(70.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Button(modifier = Modifier
+                    .size(dimensionResource(R.dimen.standart_button_weight), 60.dp),
+                    shape = RoundedCornerShape(20.dp),
+                    onClick = {
+                        whoDebts.forEachIndexed { i, _ ->
+                            whoDebts[i] = true
+                        }
+                    }) {
+                    Text(stringResource(R.string.select_all), fontSize = 20.sp)
+                }
+            }
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .size(70.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Button(modifier = Modifier
+                    .size(dimensionResource(R.dimen.standart_button_weight), 60.dp),
+                    shape = RoundedCornerShape(20.dp),
+                    onClick = {
+                        whoDebts.forEachIndexed { i, _ ->
+                            whoDebts[i] = false
+                        }
+                    }) {
+                    Text(stringResource(R.string.deselect), fontSize = 20.sp)
+                }
+            }
+        }
+
+
 
         LazyColumn(
             modifier = Modifier
@@ -157,12 +196,11 @@ fun AddCheckWindow(
                         debtorsNames,
                         whoDebts,
                         navController,
-                        room,
                         user,
                         description.value
                     )
 
-                    addCheckViewModel.update(data)
+                    addCheckViewModel.addCheckViewModel(data, room)
                 }) {
                 Text(stringResource(R.string.add), fontSize = 35.sp)
             }

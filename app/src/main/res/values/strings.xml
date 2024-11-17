@@ -11,4 +11,6 @@
     <string name="sign_up">Регистрация</string>
     <string name="skip">Пропустить</string>
     <string name="name">Название</string>
+    <string name="select_all">Выделить все</string>
+    <string name="deselect">Снять выделение</string>
 </resources>

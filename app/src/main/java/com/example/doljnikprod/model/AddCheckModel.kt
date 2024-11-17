@@ -1,5 +1,6 @@
 package com.example.doljnikprod.model
 
+import androidx.compose.runtime.MutableState
 import androidx.navigation.NavHostController
 import com.example.doljnikprod.Person
 import com.example.doljnikprod.Room
@@ -10,12 +11,11 @@ data class AddCheckData(
     val debtorsNames: MutableList<String>,
     val whoDebts: MutableList<Boolean>,
     val navController: NavHostController,
-    val room: Room,
     val user: Person,
     val description: String
 )
 
-fun addCheck(data: AddCheckData) {
+fun addCheck(data: AddCheckData, room: Room) {
     val thisDebt = data.debtStr.toIntOrNull()
     if (thisDebt != null) {
         var quantity = 0
@@ -24,13 +24,13 @@ fun addCheck(data: AddCheckData) {
         }
 
         for (d in data.user.debtors) {
-            for (thisPerson in data.room.users) {
+            for (thisPerson in room.users) {
                 if (data.debtorsNames.indexOf(d.key) != -1) {
                     if (thisPerson.name == d.key && data.whoDebts[data.debtorsNames.indexOf(
                             d.key
                         )]
                     ) {
-                        data.room.setDebt(
+                        room.setDebt(
                             data.user,
                             thisPerson,
                             thisDebt / quantity,
