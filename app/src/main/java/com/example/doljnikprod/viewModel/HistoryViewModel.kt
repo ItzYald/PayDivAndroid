@@ -21,8 +21,8 @@ class HistoryViewModel : ViewModel() {
         navController.navigate(Routes.HistoryFilters.route)
     }
 
-    fun goToViewTransaction(navController: NavHostController, _transaction : Transaction) {
-        transaction.value = _transaction
+    fun goToViewTransaction(navController: NavHostController, transaction : Transaction) {
+        this.transaction.value = transaction
         navController.navigate(Routes.ViewingTransaction.route)
 
     }

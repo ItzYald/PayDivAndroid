@@ -8,16 +8,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.doljnikprod.model.AddCheckModel
+import com.example.doljnikprod.model.RepaymentModel
 import com.example.doljnikprod.view.AddCheckWindow
 import com.example.doljnikprod.viewModel.HistoryViewModel
+import com.example.doljnikprod.viewModel.RepaymentViewModel
 
 class MainClass {
 
     private val rooms = mutableListOf<Room>()
 
     private val roomIndex: MutableState<Int>
-
-    private var userGivedDebt: MutableState<Person>
 
     private var user = Person("Петя")
 
@@ -41,14 +42,19 @@ class MainClass {
         rooms[1].addPerson("ячсм")
         rooms[1].addPerson("ывап")
         roomIndex = mutableStateOf(0)
-        userGivedDebt = mutableStateOf<Person>(rooms[0].users[1])
     }
 
     @Composable
     fun MainFunc() {
-        val addCheckViewModel: AddCheckViewModel = AddCheckViewModel()
         val navController = rememberNavController()
+
+        val addCheckModel = AddCheckModel()
+        val addCheckViewModel = AddCheckViewModel(addCheckModel)
+
         val historyViewModel = HistoryViewModel()
+
+        val repaymentModel = RepaymentModel(rooms[roomIndex.value], user, mutableStateOf<Person>(rooms[0].users[1]))
+        val repaymentViewModel = RepaymentViewModel(repaymentModel)
 
         NavHost(navController = navController, startDestination = Routes.ListRooms.route) {
             composable(Routes.Room.route) {
@@ -61,7 +67,7 @@ class MainClass {
                     }
                 }
                 user = rooms[roomIndex.value].users[userIndex]
-                RoomWindow(navController, rooms[roomIndex.value], user, userGivedDebt)
+                RoomWindow(navController, rooms[roomIndex.value], user, repaymentModel.userGivedDebt)
             }
             composable(Routes.ListRooms.route) {
                 ListRoomsWindow(navController, rooms, roomIndex)
@@ -82,11 +88,11 @@ class MainClass {
                 HistoryWindow(navController, user.history, historyViewModel)
             }
             composable(Routes.Repayment.route) {
+                repaymentModel.room = rooms[roomIndex.value]
+                repaymentModel.userRepairer = user
                 RepaymentWindow(
                     navController,
-                    rooms[roomIndex.value],
-                    userGivedDebt.value,
-                    user
+                    repaymentViewModel
                 )
             }
             composable(Routes.JoinToRoom.route) {

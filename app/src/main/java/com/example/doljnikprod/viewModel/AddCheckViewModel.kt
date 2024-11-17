@@ -6,9 +6,9 @@ import com.example.doljnikprod.Room
 import com.example.doljnikprod.model.AddCheckData
 
 import com.example.doljnikprod.Routes
-import com.example.doljnikprod.model.addCheck
+import com.example.doljnikprod.model.AddCheckModel
 
-class AddCheckViewModel() : ViewModel() {
+class AddCheckViewModel(val addCheckModel : AddCheckModel) : ViewModel() {
 
     fun goBackToRoom(navController: NavHostController){
         navController.popBackStack()
@@ -16,8 +16,7 @@ class AddCheckViewModel() : ViewModel() {
     }
 
     fun addCheckViewModel(data: AddCheckData, thisRoom: Room) {
-        addCheck(data, thisRoom)
-
+        addCheckModel.addCheck(data, thisRoom)
     }
 
 

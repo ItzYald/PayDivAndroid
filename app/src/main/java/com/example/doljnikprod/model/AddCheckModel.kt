@@ -15,36 +15,40 @@ data class AddCheckData(
     val description: String
 )
 
-fun addCheck(data: AddCheckData, room: Room) {
-    val thisDebt = data.debtStr.toIntOrNull()
-    if (thisDebt != null) {
-        var quantity = 0
-        for (w in data.whoDebts) {
-            if (w) quantity += 1;
-        }
+class AddCheckModel(){
+    fun addCheck(data: AddCheckData, room: Room) {
+        val thisDebt = data.debtStr.toIntOrNull()
+        if (thisDebt != null) {
+            var quantity = 0
+            for (w in data.whoDebts) {
+                if (w) quantity += 1;
+            }
 
-        for (d in data.user.debtors) {
-            for (thisPerson in room.users) {
-                if (data.debtorsNames.indexOf(d.key) != -1) {
-                    if (thisPerson.name == d.key && data.whoDebts[data.debtorsNames.indexOf(
-                            d.key
-                        )]
-                    ) {
-                        room.setDebt(
-                            data.user,
-                            thisPerson,
-                            thisDebt / quantity,
-                            data.description
-                        )
-                        break
+            for (d in data.user.debtors) {
+                for (thisPerson in room.users) {
+                    if (data.debtorsNames.indexOf(d.key) != -1) {
+                        if (thisPerson.name == d.key && data.whoDebts[data.debtorsNames.indexOf(
+                                d.key
+                            )]
+                        ) {
+                            room.setDebt(
+                                data.user,
+                                thisPerson,
+                                thisDebt / quantity,
+                                data.description
+                            )
+                            break
+                        }
                     }
                 }
             }
+            data.navController.popBackStack()
+            data.navController.navigate(Routes.Room.route)
         }
-        data.navController.popBackStack()
-        data.navController.navigate(Routes.Room.route)
     }
 }
+
+
 
 
 

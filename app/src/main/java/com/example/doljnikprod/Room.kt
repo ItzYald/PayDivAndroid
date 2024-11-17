@@ -48,6 +48,4 @@ class Room(val id: Int, val name: String, val password: String, val creatorName:
         }
     }
 
-
-
 }
