@@ -1,28 +1,23 @@
 package com.example.doljnikprod
 
-import android.os.Bundle
 import com.example.doljnikprod.viewModel.AddCheckViewModel
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import kotlinx.coroutines.launch
+import com.example.doljnikprod.view.AddCheckWindow
+import com.example.doljnikprod.viewModel.HistoryViewModel
 
 class MainClass {
 
     private val rooms = mutableListOf<Room>()
 
-    private val thisRoomIndex: MutableState<Int>
+    private val roomIndex: MutableState<Int>
 
     private var userGivedDebt: MutableState<Person>
-
-    private var thisTransaction: MutableState<Transaction>
 
     private var user = Person("Петя")
 
@@ -45,36 +40,34 @@ class MainClass {
         rooms[1].addPerson("фыва")
         rooms[1].addPerson("ячсм")
         rooms[1].addPerson("ывап")
-        thisRoomIndex = mutableStateOf(0)
+        roomIndex = mutableStateOf(0)
         userGivedDebt = mutableStateOf<Person>(rooms[0].users[1])
-        thisTransaction = mutableStateOf(Transaction("", 0, "", ""))
     }
 
     @Composable
     fun MainFunc() {
         val addCheckViewModel: AddCheckViewModel = AddCheckViewModel()
         val navController = rememberNavController()
-
-
+        val historyViewModel = HistoryViewModel()
 
         NavHost(navController = navController, startDestination = Routes.ListRooms.route) {
             composable(Routes.Room.route) {
 
                 var userIndex: Int = 0
-                for ((i, u) in rooms[thisRoomIndex.value].users.withIndex()) {
+                for ((i, u) in rooms[roomIndex.value].users.withIndex()) {
                     if (u.name == user.name) {
                         userIndex = i
                         break
                     }
                 }
-                user = rooms[thisRoomIndex.value].users[userIndex]
-                RoomWindow(navController, rooms[thisRoomIndex.value], user, userGivedDebt)
+                user = rooms[roomIndex.value].users[userIndex]
+                RoomWindow(navController, rooms[roomIndex.value], user, userGivedDebt)
             }
             composable(Routes.ListRooms.route) {
-                ListRoomsWindow(navController, rooms, thisRoomIndex)
+                ListRoomsWindow(navController, rooms, roomIndex)
             }
             composable(Routes.AddCheck.route) {
-                AddCheckWindow(navController, rooms[thisRoomIndex.value], user, addCheckViewModel)
+                AddCheckWindow(navController, rooms[roomIndex.value], user, addCheckViewModel)
             }
             composable(Routes.SignIn.route) {
                 SignInWindow(navController)
@@ -86,12 +79,12 @@ class MainClass {
                 CreateRoomWindow(navController, rooms, user.name)
             }
             composable(Routes.History.route) {
-                HistoryWindow(navController, user.history, thisTransaction)
+                HistoryWindow(navController, user.history, historyViewModel)
             }
             composable(Routes.Repayment.route) {
                 RepaymentWindow(
                     navController,
-                    rooms[thisRoomIndex.value],
+                    rooms[roomIndex.value],
                     userGivedDebt.value,
                     user
                 )
@@ -103,7 +96,7 @@ class MainClass {
                 StartWindow(navController)
             }
             composable(Routes.ViewingTransaction.route) {
-                ViewingTransactionWindow(navController, thisTransaction)
+                ViewingTransactionWindow(navController, historyViewModel.transaction)
             }
         }
     }

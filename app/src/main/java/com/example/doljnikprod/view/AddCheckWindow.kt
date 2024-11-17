@@ -1,4 +1,4 @@
-package com.example.doljnikprod
+package com.example.doljnikprod.view
 
 import com.example.doljnikprod.viewModel.AddCheckViewModel
 import com.example.doljnikprod.model.AddCheckData
@@ -25,7 +25,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
@@ -33,6 +32,11 @@ import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.doljnikprod.BackButton
+import com.example.doljnikprod.MyTextField
+import com.example.doljnikprod.Person
+import com.example.doljnikprod.R
+import com.example.doljnikprod.Room
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
@@ -46,7 +50,7 @@ fun AddCheckWindow(
 
 
     val debtorsNames = remember { mutableStateListOf<String>() }
-    val whoDebts = remember { mutableStateListOf<Boolean>() }
+    val selectedDebts = remember { mutableStateListOf<Boolean>() }
 
     for (i in room.users) {
         if (user.name == i.name) {
@@ -57,7 +61,7 @@ fun AddCheckWindow(
     for (i in debtors) {
         if (user.name != i.key) {
             debtorsNames.add(i.key)
-            whoDebts.add(false)
+            selectedDebts.add(false)
         }
     }
 
@@ -110,8 +114,8 @@ fun AddCheckWindow(
                     .size(dimensionResource(R.dimen.standart_button_weight), 60.dp),
                     shape = RoundedCornerShape(20.dp),
                     onClick = {
-                        whoDebts.forEachIndexed { i, _ ->
-                            whoDebts[i] = true
+                        selectedDebts.forEachIndexed { i, _ ->
+                            selectedDebts[i] = true
                         }
                     }) {
                     Text(stringResource(R.string.select_all), fontSize = 20.sp)
@@ -128,8 +132,8 @@ fun AddCheckWindow(
                     .size(dimensionResource(R.dimen.standart_button_weight), 60.dp),
                     shape = RoundedCornerShape(20.dp),
                     onClick = {
-                        whoDebts.forEachIndexed { i, _ ->
-                            whoDebts[i] = false
+                        selectedDebts.forEachIndexed { i, _ ->
+                            selectedDebts[i] = false
                         }
                     }) {
                     Text(stringResource(R.string.deselect), fontSize = 20.sp)
@@ -172,8 +176,8 @@ fun AddCheckWindow(
                         contentAlignment = Alignment.CenterEnd
                     ) {
                         Checkbox(
-                            checked = whoDebts[i],
-                            onCheckedChange = { whoDebts[i] = it }
+                            checked = selectedDebts[i],
+                            onCheckedChange = { selectedDebts[i] = it }
                         )
                     }
                 }
@@ -194,7 +198,7 @@ fun AddCheckWindow(
                     val data = AddCheckData(
                         thisDebtStr.value,
                         debtorsNames,
-                        whoDebts,
+                        selectedDebts,
                         navController,
                         user,
                         description.value

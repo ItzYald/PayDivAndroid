@@ -9,16 +9,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -26,13 +23,13 @@ import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.doljnikprod.viewModel.HistoryViewModel
 
 @Composable
-fun HistoryWindow(navController: NavHostController, history: MutableList<Transaction>, thisTransaction: MutableState<Transaction>) {
+fun HistoryWindow(navController: NavHostController, history: MutableList<Transaction>, historyViewModel: HistoryViewModel) {
     Column(verticalArrangement = Arrangement.SpaceAround) {
         BackButton {
-            navController.popBackStack()
-            navController.navigate(Routes.Room.route)
+            historyViewModel.goBackToRoom(navController)
         }
         LazyColumn(
             modifier = Modifier
@@ -74,8 +71,7 @@ fun HistoryWindow(navController: NavHostController, history: MutableList<Transac
                     ) {
                         IconButton(modifier = Modifier.size(80.dp),
                             onClick = {
-                                thisTransaction.value = it
-                                navController.navigate(Routes.ViewingTransaction.route)
+                                historyViewModel.goToViewTransaction(navController, it)
                             }) {
                             Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = "", modifier = Modifier.size(40.dp))
                         }
